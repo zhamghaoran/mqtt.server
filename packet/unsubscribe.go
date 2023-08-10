@@ -20,6 +20,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"leetcode/constant"
 )
 
 // UnsubscribePacket is an internal representation of the fields of the
@@ -28,6 +29,10 @@ type UnsubscribePacket struct {
 	FixedHeader
 	MessageID uint16
 	Topics    []string
+}
+
+func (u *UnsubscribePacket) Type() int {
+	return constant.UNSUBSCRIBE
 }
 
 func (u *UnsubscribePacket) String() string {

@@ -19,6 +19,7 @@ package packets
 import (
 	"fmt"
 	"io"
+	"leetcode/constant"
 )
 
 // PubackPacket is an internal representation of the fields of the
@@ -26,6 +27,10 @@ import (
 type PubackPacket struct {
 	FixedHeader
 	MessageID uint16
+}
+
+func (pa *PubackPacket) Type() int {
+	return constant.PUBACK
 }
 
 func (pa *PubackPacket) String() string {

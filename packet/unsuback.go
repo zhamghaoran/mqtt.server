@@ -19,6 +19,7 @@ package packets
 import (
 	"fmt"
 	"io"
+	"leetcode/constant"
 )
 
 // UnsubackPacket is an internal representation of the fields of the
@@ -26,6 +27,10 @@ import (
 type UnsubackPacket struct {
 	FixedHeader
 	MessageID uint16
+}
+
+func (ua *UnsubackPacket) Type() int {
+	return constant.UNSUBSCRIBEACK
 }
 
 func (ua *UnsubackPacket) String() string {

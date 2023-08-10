@@ -20,6 +20,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"leetcode/constant"
 )
 
 // SubackPacket is an internal representation of the fields of the
@@ -28,6 +29,10 @@ type SubackPacket struct {
 	FixedHeader
 	MessageID   uint16
 	ReturnCodes []byte
+}
+
+func (sa *SubackPacket) Type() int {
+	return constant.SUBACK
 }
 
 func (sa *SubackPacket) String() string {

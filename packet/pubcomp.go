@@ -19,6 +19,7 @@ package packets
 import (
 	"fmt"
 	"io"
+	"leetcode/constant"
 )
 
 // PubcompPacket is an internal representation of the fields of the
@@ -26,6 +27,10 @@ import (
 type PubcompPacket struct {
 	FixedHeader
 	MessageID uint16
+}
+
+func (pc *PubcompPacket) Type() int {
+	return constant.PUBCOMP
 }
 
 func (pc *PubcompPacket) String() string {

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="83e38e92-9e1c-48f0-95d9-9307c919c57a" name="更改" comment="&quot;add type interface&quot;">
+      <change afterPath="$PROJECT_DIR$/constant/constant.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/connack.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/connack.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/connect.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/connect.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/disconnect.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/disconnect.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/packets.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/packets.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/pingreq.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/pingreq.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/pingresp.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/pingresp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/puback.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/puback.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/pubcomp.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/pubcomp.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/publish.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/publish.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/pubrec.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/pubrec.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/pubrel.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/pubrel.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/suback.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/suback.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/subscribe.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/unsuback.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/unsuback.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packet/unsubscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/unsubscribe.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go Application" />
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file://$PROJECT_DIR$/../../golang" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../golang/src/strconv/atoi.go" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2RaKpdQzKQMwT8i1AdEWzj81UTD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "go.import.settings.migrated": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/goLandProject/meross_official_api",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "ssh.settings"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\goLandProject\leetcode\packet" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\goLandProject\leetcode" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go 构建.go build leetcode/test">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="leetcode" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build leetcode" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="leetcode" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="leetcode" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build leetcode/test" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="leetcode" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="leetcode/test" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/test/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="leetcode" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="leetcode" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go 构建.go build leetcode/test" />
+        <item itemvalue="Go 构建.go build leetcode" />
+        <item itemvalue="Go 构建.go build main.go" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="&quot;add type interface&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;add type interface&quot;" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/test.go</url>
+          <line>16</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="GoApplicationRunConfiguration">
+        <watch expression="string(data)" language="go" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

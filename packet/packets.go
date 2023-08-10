@@ -32,6 +32,7 @@ type ControlPacket interface {
 	Unpack(io.Reader) error
 	String() string
 	Details() Details
+	Type() int
 }
 
 // PacketNames maps the constants for each of the MQTT packet types

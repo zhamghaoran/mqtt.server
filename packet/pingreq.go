@@ -18,12 +18,17 @@ package packets
 
 import (
 	"io"
+	"leetcode/constant"
 )
 
 // PingreqPacket is an internal representation of the fields of the
 // Pingreq MQTT packet
 type PingreqPacket struct {
 	FixedHeader
+}
+
+func (pr *PingreqPacket) Type() int {
+	return constant.PINGREG
 }
 
 func (pr *PingreqPacket) String() string {

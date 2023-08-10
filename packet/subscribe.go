@@ -20,6 +20,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"leetcode/constant"
 )
 
 // SubscribePacket is an internal representation of the fields of the
@@ -29,6 +30,10 @@ type SubscribePacket struct {
 	MessageID uint16
 	Topics    []string
 	Qoss      []byte
+}
+
+func (s *SubscribePacket) Type() int {
+	return constant.SUBSCRIBE
 }
 
 func (s *SubscribePacket) String() string {

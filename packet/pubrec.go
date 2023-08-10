@@ -19,6 +19,7 @@ package packets
 import (
 	"fmt"
 	"io"
+	"leetcode/constant"
 )
 
 // PubrecPacket is an internal representation of the fields of the
@@ -26,6 +27,10 @@ import (
 type PubrecPacket struct {
 	FixedHeader
 	MessageID uint16
+}
+
+func (pr *PubrecPacket) Type() int {
+	return constant.PUBREC
 }
 
 func (pr *PubrecPacket) String() string {

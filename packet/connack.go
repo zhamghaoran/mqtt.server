@@ -20,6 +20,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"leetcode/constant"
 )
 
 // ConnackPacket is an internal representation of the fields of the
@@ -28,6 +29,10 @@ type ConnackPacket struct {
 	FixedHeader
 	SessionPresent bool
 	ReturnCode     byte
+}
+
+func (ca *ConnackPacket) Type() int {
+	return constant.CONNACK
 }
 
 func (ca *ConnackPacket) String() string {

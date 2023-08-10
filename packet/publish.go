@@ -20,6 +20,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"leetcode/constant"
 )
 
 // PublishPacket is an internal representation of the fields of the
@@ -29,6 +30,10 @@ type PublishPacket struct {
 	TopicName string
 	MessageID uint16
 	Payload   []byte
+}
+
+func (p *PublishPacket) Type() int {
+	return constant.PUBLISH
 }
 
 func (p *PublishPacket) String() string {

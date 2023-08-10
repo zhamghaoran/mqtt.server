@@ -18,12 +18,17 @@ package packets
 
 import (
 	"io"
+	"leetcode/constant"
 )
 
 // DisconnectPacket is an internal representation of the fields of the
 // Disconnect MQTT packet
 type DisconnectPacket struct {
 	FixedHeader
+}
+
+func (d *DisconnectPacket) Type() int {
+	return constant.DISCONNECT
 }
 
 func (d *DisconnectPacket) String() string {
