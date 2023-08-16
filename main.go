@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"leetcode/constant"
+	"leetcode/handler"
 	. "leetcode/packet"
 	"log"
 	"net"
@@ -38,24 +39,31 @@ func handleConnection(conn net.Conn) {
 			break
 		}
 		log.Println(packet.String())
-
-		handleDeclaredStruct(packet)
+		// 处理数据
+		typeCode, err := handleDeclaredStruct(packet)
+		if err != nil {
+			return
+		}
+		sendACK(conn, typeCode)
 	}
 	log.Println("Client disconnected:", conn.RemoteAddr())
 }
-func handleDeclaredStruct(packet ControlPacket) error {
-	declaredStruct, err := getDeclaredStruct(packet)
+func handleDeclaredStruct(packet ControlPacket) (int, error) {
+	// 获取到方法列表
+	handlers := handler.GetHandler()
+	// 将方法列表传入
+	typeCode, err := ExecuteHandler(packet, handlers)
 	if err != nil {
-		return err
+		return typeCode, err
 	}
-
+	return typeCode, nil
 }
-func getDeclaredStruct(packet ControlPacket) (ControlPacket, error) {
+func ExecuteHandler(packet ControlPacket, handler handler.HandlerI) (int, error) {
 	typeCode := packet.Type()
 	var err error
 	switch typeCode {
 	case 1:
-		packet = packet.(*ConnackPacket)
+		return packet.(*ConnectPacket).Type(), handler.ConnectHandle(packet.(*ConnectPacket))
 	case 2:
 		packet = packet.(*ConnackPacket)
 	case 3:
@@ -84,9 +92,9 @@ func getDeclaredStruct(packet ControlPacket) (ControlPacket, error) {
 		packet = packet.(*DisconnectPacket)
 	default:
 		err = fmt.Errorf("unsupported packet type : %d", typeCode)
-		return nil, err
+		return 0, err
 	}
-	return packet, nil
+	return 0, nil
 }
 func sendACK(conn net.Conn, messageType int) {
 	var err error
