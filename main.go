@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"github.com/eclipse/paho.mqtt.golang/packets"
 	"leetcode/constant"
 	"leetcode/handler"
 	. "leetcode/packet"
@@ -66,30 +68,43 @@ func ExecuteHandler(packet ControlPacket, handler handler.HandlerI) (int, error)
 		return packet.(*ConnectPacket).Type(), handler.ConnectHandle(packet.(*ConnectPacket))
 	case 2:
 		packet = packet.(*ConnackPacket)
+		return packet.Type(), nil
 	case 3:
 		packet = packet.(*PublishPacket)
+		return packet.Type(), nil
 	case 4:
 		packet = packet.(*PubackPacket)
+		return packet.Type(), nil
 	case 5:
 		packet = packet.(*PubrecPacket)
+		return packet.Type(), nil
 	case 6:
 		packet = packet.(*PubrelPacket)
+		return packet.Type(), nil
 	case 7:
 		packet = packet.(*PubcompPacket)
+		return packet.Type(), nil
 	case 8:
 		packet = packet.(*SubscribePacket)
+		return packet.Type(), nil
 	case 9:
 		packet = packet.(*SubackPacket)
+		return packet.Type(), nil
 	case 10:
 		packet = packet.(*UnsubscribePacket)
+		return packet.Type(), nil
 	case 11:
 		packet = packet.(*UnsubackPacket)
+		return packet.Type(), nil
 	case 12:
 		packet = packet.(*PingreqPacket)
+		return packet.Type(), nil
 	case 13:
 		packet = packet.(*PingrespPacket)
+		return packet.Type(), nil
 	case 14:
 		packet = packet.(*DisconnectPacket)
+		return packet.Type(), nil
 	default:
 		err = fmt.Errorf("unsupported packet type : %d", typeCode)
 		return 0, err
@@ -98,11 +113,28 @@ func ExecuteHandler(packet ControlPacket, handler handler.HandlerI) (int, error)
 }
 func sendACK(conn net.Conn, messageType int) {
 	var err error
+	var i bytes.Buffer
 	switch messageType {
 	case constant.CONNECT:
-		_, err = conn.Write([]byte{0x20, byte(constant.CONNACK), 0x00, 0x00})
+		i.Reset()
+		connackPacket := packets.NewControlPacket(Connack).(*packets.ConnackPacket)
+		_ = connackPacket.Write(&i)
+		fmt.Println(i.Bytes())
+		_, _ = conn.Write(i.Bytes())
+		//_, err = conn.Write([]byte{0x20, byte(constant.CONNACK), 0x00, 0x00})
 	case constant.PINGREG:
-		_, err = conn.Write([]byte{byte(constant.PINGRESQ), 0x00})
+		i.Reset()
+		pingrespPacket := packets.NewControlPacket(Pingresp).(*packets.PingrespPacket)
+		_ = pingrespPacket.Write(&i)
+		fmt.Println(i.Bytes())
+		_, _ = conn.Write(i.Bytes())
+		//_, err = conn.Write([]byte{byte(constant.PINGRESQ), 0x00})
+	case constant.SUBSCRIBE:
+		i.Reset()
+		subackpacket := packets.NewControlPacket(Suback).(*packets.SubackPacket)
+		_ = subackpacket.Write(&i)
+		fmt.Println(i.Bytes())
+		_, _ = conn.Write(i.Bytes())
 	}
 	if err != nil {
 		log.Printf("sendACK err : %s", err.Error())
