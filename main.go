@@ -33,7 +33,12 @@ func main() {
 }
 
 func handleConnection(conn net.Conn) {
-	defer conn.Close()
+	defer func(conn net.Conn) {
+		err := conn.Close()
+		if err != nil {
+			log.Println(err)
+		}
+	}(conn)
 	for {
 		log.Println("New client connected:", conn.RemoteAddr())
 		packet, err := ReadPacket(conn)
@@ -109,7 +114,7 @@ func ExecuteHandler(packet ControlPacket, handler handler.HandlerI) (int, error)
 		err = fmt.Errorf("unsupported packet type : %d", typeCode)
 		return 0, err
 	}
-	return 0, nil
+
 }
 func sendACK(conn net.Conn, messageType int) {
 	var err error

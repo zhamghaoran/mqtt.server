@@ -4,27 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83e38e92-9e1c-48f0-95d9-9307c919c57a" name="更改" comment="&quot;add type interface&quot;">
-      <change afterPath="$PROJECT_DIR$/constant/constant.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+    <list default="true" id="83e38e92-9e1c-48f0-95d9-9307c919c57a" name="更改" comment="&quot;finish connect &quot;">
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/connack.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/connack.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/connect.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/connect.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/disconnect.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/disconnect.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/packets.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/packets.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/pingreq.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/pingreq.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/pingresp.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/pingresp.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/puback.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/puback.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/pubcomp.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/pubcomp.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/publish.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/publish.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/pubrec.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/pubrec.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/pubrel.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/pubrel.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/suback.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/suback.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/subscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/subscribe.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/unsuback.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/unsuback.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packet/unsubscribe.go" beforeDir="false" afterPath="$PROJECT_DIR$/packet/unsubscribe.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +24,20 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;zhamghaoran&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="aa39852f-57ac-46a5-a6d4-4765102c6404" />
+        <option name="url" value="git@github.com:zhamghaoran/mqtt-server.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../../golang/src/strconv/atoi.go" root0="SKIP_INSPECTION" />
   </component>
@@ -59,26 +54,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultGoTemplateProperty": "Go File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "go.import.settings.migrated": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/goLandProject/meross_official_api",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "ssh.settings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/goLandProject/meross_official_api&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\goLandProject\leetcode\packet" />
@@ -148,7 +143,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -156,7 +163,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="&quot;add type interface&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;add type interface&quot;" />
+    <MESSAGE value="&quot;finish connect &quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;finish connect &quot;" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -168,6 +176,16 @@
           <url>file://$PROJECT_DIR$/test.go</url>
           <line>16</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/main.go</url>
+          <line>118</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/test/server.go</url>
+          <line>34</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
