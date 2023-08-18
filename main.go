@@ -91,7 +91,7 @@ func ExecuteHandler(packet ControlPacket, handler handler.HandlerI) (int, error)
 		return packet.Type(), nil
 	case 8:
 		packet = packet.(*SubscribePacket)
-		return packet.Type(), nil
+		return packet.Type(), handler.SubscribeHandle(packet.(*SubscribePacket))
 	case 9:
 		packet = packet.(*SubackPacket)
 		return packet.Type(), nil
