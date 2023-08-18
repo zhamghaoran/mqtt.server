@@ -51,10 +51,21 @@ func handleConnection(conn net.Conn) {
 		if err != nil {
 			return
 		}
+		if packet.Type() == Connect {
+			// 这是一个连接请求，保存连接
+			handler.SetConn(conn, packet.Details().MessageID)
+		}
+		if packet.Type() == Disconnect {
+			// 取消连接
+			handler.DeleteConn(packet.Details().MessageID)
+			sendACK(conn, typeCode)
+			break
+		}
 		sendACK(conn, typeCode)
 	}
 	log.Println("Client disconnected:", conn.RemoteAddr())
 }
+
 func handleDeclaredStruct(packet ControlPacket) (int, error) {
 	// 获取到方法列表
 	handlers := handler.GetHandler()
@@ -126,14 +137,12 @@ func sendACK(conn net.Conn, messageType int) {
 		_ = connackPacket.Write(&i)
 		fmt.Println(i.Bytes())
 		_, _ = conn.Write(i.Bytes())
-		//_, err = conn.Write([]byte{0x20, byte(constant.CONNACK), 0x00, 0x00})
 	case constant.PINGREG:
 		i.Reset()
 		pingrespPacket := packets.NewControlPacket(Pingresp).(*packets.PingrespPacket)
 		_ = pingrespPacket.Write(&i)
 		fmt.Println(i.Bytes())
 		_, _ = conn.Write(i.Bytes())
-		//_, err = conn.Write([]byte{byte(constant.PINGRESQ), 0x00})
 	case constant.SUBSCRIBE:
 		i.Reset()
 		subackpacket := packets.NewControlPacket(Suback).(*packets.SubackPacket)

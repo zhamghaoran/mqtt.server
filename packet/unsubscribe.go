@@ -1,19 +1,3 @@
-/*
- * Copyright (c) 2021 IBM Corp and others.
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * and Eclipse Distribution License v1.0 which accompany this distribution.
- *
- * The Eclipse Public License is available at
- *    https://www.eclipse.org/legal/epl-2.0/
- * and the Eclipse Distribution License is available at
- *   http://www.eclipse.org/org/documents/edl-v10.php.
- *
- * Contributors:
- *    Allan Stockdill-Mander
- */
-
 package packets
 
 import (
@@ -23,8 +7,6 @@ import (
 	"leetcode/constant"
 )
 
-// UnsubscribePacket is an internal representation of the fields of the
-// Unsubscribe MQTT packet
 type UnsubscribePacket struct {
 	FixedHeader
 	MessageID uint16
@@ -54,8 +36,6 @@ func (u *UnsubscribePacket) Write(w io.Writer) error {
 	return err
 }
 
-// Unpack decodes the details of a ControlPacket after the fixed
-// header has been read
 func (u *UnsubscribePacket) Unpack(b io.Reader) error {
 	var err error
 	u.MessageID, err = decodeUint16(b)
@@ -70,8 +50,6 @@ func (u *UnsubscribePacket) Unpack(b io.Reader) error {
 	return err
 }
 
-// Details returns a Details struct containing the Qos and
-// MessageID of this ControlPacket
 func (u *UnsubscribePacket) Details() Details {
 	return Details{Qos: 1, MessageID: u.MessageID}
 }

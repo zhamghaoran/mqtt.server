@@ -1,19 +1,3 @@
-/*
- * Copyright (c) 2021 IBM Corp and others.
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * and Eclipse Distribution License v1.0 which accompany this distribution.
- *
- * The Eclipse Public License is available at
- *    https://www.eclipse.org/legal/epl-2.0/
- * and the Eclipse Distribution License is available at
- *   http://www.eclipse.org/org/documents/edl-v10.php.
- *
- * Contributors:
- *    Allan Stockdill-Mander
- */
-
 package packets
 
 import (
@@ -23,8 +7,6 @@ import (
 	"leetcode/constant"
 )
 
-// PublishPacket is an internal representation of the fields of the
-// Publish MQTT packet
 type PublishPacket struct {
 	FixedHeader
 	TopicName string
@@ -57,8 +39,6 @@ func (p *PublishPacket) Write(w io.Writer) error {
 	return err
 }
 
-// Unpack decodes the details of a ControlPacket after the fixed
-// header has been read
 func (p *PublishPacket) Unpack(b io.Reader) error {
 	var payloadLength = p.FixedHeader.RemainingLength
 	var err error
@@ -85,10 +65,6 @@ func (p *PublishPacket) Unpack(b io.Reader) error {
 	return err
 }
 
-// Copy creates a new PublishPacket with the same topic and payload
-// but an empty fixed header, useful for when you want to deliver
-// a message with different properties such as Qos but the same
-// content
 func (p *PublishPacket) Copy() *PublishPacket {
 	newP := NewControlPacket(Publish).(*PublishPacket)
 	newP.TopicName = p.TopicName
@@ -97,8 +73,6 @@ func (p *PublishPacket) Copy() *PublishPacket {
 	return newP
 }
 
-// Details returns a Details struct containing the Qos and
-// MessageID of this ControlPacket
 func (p *PublishPacket) Details() Details {
 	return Details{Qos: p.Qos, MessageID: p.MessageID}
 }

@@ -1,6 +1,9 @@
 package handler
 
-import packets "leetcode/packet"
+import (
+	packets "leetcode/packet"
+	"strconv"
+)
 
 var HandlerMap map[string]interface{}
 
@@ -21,6 +24,8 @@ type HandlerI interface {
 }
 type DefaultHandler struct{}
 
+var subscribeMap map[string]string
+
 func (DefaultHandler) ConnectHandle(packet *packets.ConnectPacket) error {
 	return nil
 }
@@ -40,6 +45,10 @@ func (DefaultHandler) PubcompHandle(packet *packets.PubcompPacket) error {
 	return nil
 }
 func (DefaultHandler) SubscribeHandle(packet *packets.SubscribePacket) error {
+	topics := packet.Topics
+	for _, topic := range topics {
+		subscribeMap[strconv.Itoa(int(packet.MessageID))] = topic
+	}
 	return nil
 }
 func (DefaultHandler) SubackHandle(packet *packets.SubscribePacket) error {
