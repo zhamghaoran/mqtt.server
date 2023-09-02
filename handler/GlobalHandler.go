@@ -27,6 +27,10 @@ type DefaultHandler struct{}
 var subscribeMap map[string]string
 
 func (DefaultHandler) ConnectHandle(packet *packets.ConnectPacket) error {
+	//todo  密码校验
+
+	// 保存连接
+
 	return nil
 }
 func (DefaultHandler) ConnectAckHandle(packet *packets.ConnackPacket) error {

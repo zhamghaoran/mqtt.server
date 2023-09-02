@@ -16,5 +16,5 @@ const (
 	PINGREG        int = 12 //心跳请求
 	PINGRESQ       int = 13 //心跳响应
 	DISCONNECT     int = 14 //客户端断开连接
-	TYPELEN        int = 14
+	TYPELEN        int = 15
 )

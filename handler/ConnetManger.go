@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"log"
 	"net"
 	"sync"
 	"time"
@@ -13,45 +14,51 @@ const (
 )
 
 type connection struct {
-	lock   sync.Mutex
 	conn   net.Conn
 	expire time.Duration
 }
 
-var connMap map[uint16]*connection
+var connMap sync.Map
 
 func SetConn(conn net.Conn, messageId uint16) {
 	c := &connection{}
 	c.conn = conn
 	c.expire = ExpireTime
-	connMap[messageId] = c
+	connMap.Store(messageId, c)
 }
 func GetConn(messageId uint16) (net.Conn, error) {
-	if connMap[messageId] == nil {
-		return nil, fmt.Errorf("未定义的连接: %d", messageId)
+	conn, ok := connMap.LoadAndDelete(messageId)
+	if ok {
+		connect, _ := conn.(connection)
+		connect.expire = ExpireTime
+		connMap.Store(messageId, connect)
+		return connect.conn, nil
+	} else {
+		return nil, fmt.Errorf("未定义的连接")
 	}
-	connMap[messageId].lock.Lock()
-	conn := connMap[messageId].conn
-	connMap[messageId].expire = ExpireTime
-	connMap[messageId].lock.Unlock()
-	return conn, nil
+
 }
 func DeleteConn(messageId uint16) {
-	connMap[messageId] = nil
+	connMap.Delete(messageId)
 }
+
 func init() {
-	scanMapDeleteExpireKey()
+	go scanMapDeleteExpireKey()
 }
 func scanMapDeleteExpireKey() {
-	for k, v := range connMap {
-		v.lock.Lock()
-		if v.expire < DeleteTime {
-			delete(connMap, k)
-			v.lock.Unlock()
+	connMap.Range(func(key, value any) bool {
+		connection, ok := value.(connection)
+		if ok {
+			if connection.expire < DeleteTime {
+				connMap.Delete(key)
+			} else {
+				connection.expire -= DeleteTime
+				connMap.Store(key, connection)
+			}
 		} else {
-			v.expire -= DeleteTime
-			v.lock.Unlock()
+			log.Printf("存在异常连接%v", value)
 		}
-	}
+		return true
+	})
 	time.Sleep(DeleteTime)
 }
