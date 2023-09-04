@@ -2,7 +2,6 @@ package handler
 
 import (
 	packets "leetcode/packet"
-	"strconv"
 )
 
 var HandlerMap map[string]interface{}
@@ -24,20 +23,15 @@ type HandlerI interface {
 }
 type DefaultHandler struct{}
 
-var subscribeMap map[string]string
-
 func (DefaultHandler) ConnectHandle(packet *packets.ConnectPacket) error {
 	//todo  密码校验
-
-	// 保存连接
-
 	return nil
 }
 func (DefaultHandler) ConnectAckHandle(packet *packets.ConnackPacket) error {
 	return nil
 }
 func (DefaultHandler) PublishHandle(packet *packets.PublishPacket) error {
-	return nil
+	return publish(packet.TopicName, packet.Payload)
 }
 func (DefaultHandler) PubackHandle(packet *packets.PubackPacket) error {
 	return nil
@@ -49,10 +43,7 @@ func (DefaultHandler) PubcompHandle(packet *packets.PubcompPacket) error {
 	return nil
 }
 func (DefaultHandler) SubscribeHandle(packet *packets.SubscribePacket) error {
-	topics := packet.Topics
-	for _, topic := range topics {
-		subscribeMap[strconv.Itoa(int(packet.MessageID))] = topic
-	}
+
 	return nil
 }
 func (DefaultHandler) SubackHandle(packet *packets.SubscribePacket) error {

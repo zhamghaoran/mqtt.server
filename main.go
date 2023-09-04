@@ -49,6 +49,7 @@ func handleConnection(conn net.Conn) {
 		// 处理数据
 		typeCode, err := handleDeclaredStruct(packet)
 		if err != nil {
+			log.Printf("未定义的连接%v", conn)
 			return
 		}
 		if packet.Type() == Connect {
@@ -61,6 +62,7 @@ func handleConnection(conn net.Conn) {
 			sendACK(conn, typeCode)
 			break
 		}
+
 		sendACK(conn, typeCode)
 	}
 	log.Println("Client disconnected:", conn.RemoteAddr())
