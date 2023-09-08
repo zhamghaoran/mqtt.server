@@ -29,5 +29,5 @@ func (d *DisconnectPacket) Unpack(b io.Reader) error {
 }
 
 func (d *DisconnectPacket) Details() Details {
-	return Details{Qos: 0, MessageID: 0}
+	return Details{Qos: 0, MessageID: 0, Address: d.RemoteAddress}
 }

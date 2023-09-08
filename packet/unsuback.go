@@ -37,5 +37,5 @@ func (ua *UnsubackPacket) Unpack(b io.Reader) error {
 }
 
 func (ua *UnsubackPacket) Details() Details {
-	return Details{Qos: 0, MessageID: ua.MessageID}
+	return Details{Qos: 0, MessageID: ua.MessageID, Address: ua.RemoteAddress}
 }

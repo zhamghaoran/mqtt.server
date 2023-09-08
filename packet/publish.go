@@ -74,5 +74,5 @@ func (p *PublishPacket) Copy() *PublishPacket {
 }
 
 func (p *PublishPacket) Details() Details {
-	return Details{Qos: p.Qos, MessageID: p.MessageID}
+	return Details{Qos: p.Qos, MessageID: p.MessageID, Address: p.RemoteAddress}
 }

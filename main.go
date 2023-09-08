@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/eclipse/paho.mqtt.golang/packets"
+	"io"
 	"leetcode/constant"
 	"leetcode/handler"
 	. "leetcode/packet"
@@ -33,37 +34,41 @@ func main() {
 }
 
 func handleConnection(conn net.Conn) {
-	defer func(conn net.Conn) {
-		err := conn.Close()
-		if err != nil {
-			log.Println(err)
-		}
-	}(conn)
+	defer conn.Close()
 	for {
 		log.Println("New client connected:", conn.RemoteAddr())
-		packet, err := ReadPacket(conn)
-		if err != nil {
+		packet, err := ReadPacket(conn, conn.RemoteAddr().String())
+		if err != nil && err != io.EOF {
 			break
 		}
 		log.Println(packet.String())
-		// 处理数据
-		typeCode, err := handleDeclaredStruct(packet)
-		if err != nil {
-			log.Printf("未定义的连接%v", conn)
-			return
-		}
-		if packet.Type() == Connect {
-			// 这是一个连接请求，保存连接
-			handler.SetConn(conn, packet.Details().MessageID)
-		}
+
 		if packet.Type() == Disconnect {
 			// 取消连接
-			handler.DeleteConn(packet.Details().MessageID)
-			sendACK(conn, typeCode)
+			handler.DeleteConn(packet.Details().Address)
+			sendACK(conn, packet.Type(), 0)
 			break
 		}
 
-		sendACK(conn, typeCode)
+		if packet.Type() == Connect {
+			// 这是一个连接请求，保存连接
+			handler.SetConn(conn, packet.Details().Address)
+			sendACK(conn, packet.Type(), 0)
+		} else {
+			// 登录状态校验
+			err := handler.StateVerification(conn.RemoteAddr().String())
+			if err != nil {
+				log.Println(err.Error())
+				return
+			}
+			// 处理数据
+			typeCode, err := handleDeclaredStruct(packet)
+			if err != nil {
+				log.Printf("未定义的连接: %v", err.Error())
+				return
+			}
+			sendACK(conn, typeCode, packet.Details().MessageID)
+		}
 	}
 	log.Println("Client disconnected:", conn.RemoteAddr())
 }
@@ -89,7 +94,7 @@ func ExecuteHandler(packet ControlPacket, handler handler.HandlerI) (int, error)
 		return packet.Type(), nil
 	case constant.PUBLISH:
 		packet = packet.(*PublishPacket)
-		return packet.Type(), nil
+		return packet.Type(), handler.PublishHandle(packet.(*PublishPacket))
 	case constant.PUBACK:
 		packet = packet.(*PubackPacket)
 		return packet.Type(), nil
@@ -129,7 +134,7 @@ func ExecuteHandler(packet ControlPacket, handler handler.HandlerI) (int, error)
 	}
 
 }
-func sendACK(conn net.Conn, messageType int) {
+func sendACK(conn net.Conn, messageType int, id uint16) {
 	var err error
 	var i bytes.Buffer
 	switch messageType {
@@ -148,6 +153,21 @@ func sendACK(conn net.Conn, messageType int) {
 	case constant.SUBSCRIBE:
 		i.Reset()
 		subackpacket := packets.NewControlPacket(Suback).(*packets.SubackPacket)
+		subackpacket.MessageID = id
+		_ = subackpacket.Write(&i)
+		fmt.Println(i.Bytes())
+		_, _ = conn.Write(i.Bytes())
+	case constant.PUBLISH:
+		i.Reset()
+		subackpacket := packets.NewControlPacket(Puback).(*packets.PubackPacket)
+		subackpacket.MessageID = id
+		_ = subackpacket.Write(&i)
+		fmt.Println(i.Bytes())
+		_, _ = conn.Write(i.Bytes())
+	case constant.UNSUBSCRIBE:
+		i.Reset()
+		subackpacket := packets.NewControlPacket(Unsuback).(*packets.UnsubackPacket)
+		subackpacket.MessageID = id
 		_ = subackpacket.Write(&i)
 		fmt.Println(i.Bytes())
 		_, _ = conn.Write(i.Bytes())

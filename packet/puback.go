@@ -37,5 +37,5 @@ func (pa *PubackPacket) Unpack(b io.Reader) error {
 }
 
 func (pa *PubackPacket) Details() Details {
-	return Details{Qos: pa.Qos, MessageID: pa.MessageID}
+	return Details{Qos: pa.Qos, MessageID: pa.MessageID, Address: pa.RemoteAddress}
 }

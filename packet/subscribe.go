@@ -64,5 +64,5 @@ func (s *SubscribePacket) Unpack(b io.Reader) error {
 }
 
 func (s *SubscribePacket) Details() Details {
-	return Details{Qos: 1, MessageID: s.MessageID}
+	return Details{Qos: 1, MessageID: s.MessageID, Address: s.RemoteAddress}
 }

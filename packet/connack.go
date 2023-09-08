@@ -47,5 +47,5 @@ func (ca *ConnackPacket) Unpack(b io.Reader) error {
 }
 
 func (ca *ConnackPacket) Details() Details {
-	return Details{Qos: 0, MessageID: 0}
+	return Details{Qos: 0, MessageID: 0, Address: ca.RemoteAddress}
 }

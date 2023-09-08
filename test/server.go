@@ -35,21 +35,22 @@ func main() {
 	if token := client.Connect(); token.Wait() && token.Error() != nil {
 		panic(token.Error())
 	}
-
 	client.Connect()
+	go publish(client)
 	sub(client)
+
 }
 
 func publish(client mqtt.Client) {
+	time.Sleep(2 * time.Second)
 	num := 10
 	for i := 0; i < num; i++ {
 		text := fmt.Sprintf("Message %d", i)
-		token := client.Publish("topic", 0, false, text)
+		token := client.Publish("$share/a/topic", 0, false, text)
 		token.Wait()
 		time.Sleep(time.Second)
 	}
 }
-
 func sub(client mqtt.Client) {
 	topic := "$share/a/topic"
 	_ = client.Subscribe(topic, 1, nil)

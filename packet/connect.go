@@ -146,5 +146,5 @@ func (c *ConnectPacket) Validate() byte {
 }
 
 func (c *ConnectPacket) Details() Details {
-	return Details{Qos: 0, MessageID: 0}
+	return Details{Qos: 0, MessageID: 0, Address: c.RemoteAddress}
 }

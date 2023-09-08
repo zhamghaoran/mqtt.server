@@ -118,7 +118,7 @@ func TestConnackConsts(t *testing.T) {
 
 func TestConnectPacket(t *testing.T) {
 	connectPacketBytes := bytes.NewBuffer([]byte{16, 52, 0, 4, 77, 81, 84, 84, 4, 204, 0, 0, 0, 0, 0, 4, 116, 101, 115, 116, 0, 12, 84, 101, 115, 116, 32, 80, 97, 121, 108, 111, 97, 100, 0, 8, 116, 101, 115, 116, 117, 115, 101, 114, 0, 8, 116, 101, 115, 116, 112, 97, 115, 115})
-	packet, err := ReadPacket(connectPacketBytes)
+	packet, err := ReadPacket(connectPacketBytes, "")
 	if err != nil {
 		t.Fatalf("Error reading packet: %s", err.Error())
 	}
@@ -181,7 +181,7 @@ func TestPackUnpackControlPackets(t *testing.T) {
 		if err := packet.Write(buf); err != nil {
 			t.Errorf("Write of %T returned error: %s", packet, err)
 		}
-		read, err := ReadPacket(buf)
+		read, err := ReadPacket(buf, "")
 		if err != nil {
 			t.Errorf("Read of packed %T returned error: %s", packet, err)
 		}

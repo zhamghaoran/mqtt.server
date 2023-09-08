@@ -37,5 +37,5 @@ func (pr *PubrelPacket) Unpack(b io.Reader) error {
 }
 
 func (pr *PubrelPacket) Details() Details {
-	return Details{Qos: pr.Qos, MessageID: pr.MessageID}
+	return Details{Qos: pr.Qos, MessageID: pr.MessageID, Address: pr.RemoteAddress}
 }

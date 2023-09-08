@@ -43,8 +43,7 @@ func (DefaultHandler) PubcompHandle(packet *packets.PubcompPacket) error {
 	return nil
 }
 func (DefaultHandler) SubscribeHandle(packet *packets.SubscribePacket) error {
-
-	return nil
+	return subscribe(packet.RemoteAddress, packet.Topics)
 }
 func (DefaultHandler) SubackHandle(packet *packets.SubscribePacket) error {
 	return nil

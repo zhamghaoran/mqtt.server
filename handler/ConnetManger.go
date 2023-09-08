@@ -1,7 +1,10 @@
 package handler
 
 import (
+	"bytes"
 	"fmt"
+	"leetcode/constant"
+	packets "leetcode/packet"
 	"log"
 	"net"
 	"sync"
@@ -14,34 +17,33 @@ const (
 )
 
 type connection struct {
-	conn      net.Conn
-	expire    time.Duration
-	topicName []string
+	conn   net.Conn
+	expire time.Duration
 }
 
+/*
+key  remoteAddress
+val  connection
+*/
 var connMap sync.Map
+
+/*
+key topic
+value connection
+*/
 var subscribeMap sync.Map
 
-func SetConn(conn net.Conn, messageId uint16) {
+func SetConn(conn net.Conn, remoteAdd string) {
 	c := &connection{}
 	c.conn = conn
 	c.expire = ExpireTime
-	connMap.Store(messageId, c)
+	connMap.Store(remoteAdd, c)
 }
-func GetConn(messageId uint16) (net.Conn, error) {
-	conn, ok := connMap.LoadAndDelete(messageId)
-	if ok {
-		connect, _ := conn.(connection)
-		connect.expire = ExpireTime
-		connMap.Store(messageId, connect)
-		return connect.conn, nil
-	} else {
-		return nil, fmt.Errorf("未定义的连接")
-	}
 
-}
-func DeleteConn(messageId uint16) {
-	connMap.Delete(messageId)
+func DeleteConn(remoteAdd string) {
+	value, _ := connMap.LoadAndDelete(remoteAdd)
+	conn, _ := value.(connection)
+	_ = conn.conn.Close()
 }
 
 func init() {
@@ -64,32 +66,9 @@ func scanMapDeleteExpireKey() {
 	})
 	time.Sleep(DeleteTime)
 }
-func SetConnName(messageId uint16, topicName string) error {
-	value, ok := connMap.LoadAndDelete(messageId)
-	if ok != true {
-		return fmt.Errorf("连接异常")
-	}
-	conn, err := value.(connection)
-	if err != true {
-		return fmt.Errorf("转化异常")
-	}
-	conn.topicName = []string{topicName}
-	connMap.Store(messageId, conn)
-	return nil
-}
-func getConnectionByTopicName(topicName string) []connection {
-	var connList []connection
-	connMap.Range(func(key, value any) bool {
-		conn, err := value.(connection)
-		if err == true {
-			connList = append(connList, conn)
-		}
-		return true
-	})
-	return connList
-}
 
 func publish(topicName string, payload []byte) error {
+	var i bytes.Buffer
 	load, o := subscribeMap.Load(topicName)
 	if !o {
 		return fmt.Errorf("获取连接失败")
@@ -99,32 +78,53 @@ func publish(topicName string, payload []byte) error {
 		return fmt.Errorf("连接断言错误")
 	}
 	for _, v := range connList {
-		_, err := v.Write(payload)
-		if err != nil {
-			return err
+		packet := packets.NewControlPacket(byte(constant.PUBLISH)).(*packets.PublishPacket)
+		packet.Payload = payload
+		packet.TopicName = topicName
+		packet.Qos = 1
+		_ = packet.Write(&i)
+		_, sendError := v.Write(i.Bytes())
+		if sendError != nil {
+			return sendError
 		}
 	}
 	return nil
 }
-func subscribe(messageId uint16, topicName []string) error {
-	value, ok := connMap.Load(messageId)
+
+func subscribe(remoteAdd string, topicName []string) error {
+	value, ok := connMap.Load(remoteAdd)
 	if !ok {
 		return fmt.Errorf("获取连接错误")
 	}
-	conn, err := value.(connection)
+	conn, err := value.(*connection)
 	if !err {
 		return fmt.Errorf("连接断言失败")
 	}
-	andDelete, loaded := subscribeMap.LoadAndDelete(conn.conn)
-	if !loaded {
-		subscribeMap.Store(conn.conn, topicName)
-	} else {
-		topicList, err := andDelete.([]string)
-		if !err {
-			return fmt.Errorf("参数列表断言错误")
+	for _, val := range topicName {
+		andDelete, loaded := subscribeMap.LoadAndDelete(val)
+		if !loaded {
+			subscribeMap.Store(val, []net.Conn{conn.conn})
+		} else {
+			connList, err := andDelete.([]net.Conn)
+			if !err {
+				return fmt.Errorf("类型断言错误")
+			}
+			connList = append(connList, conn.conn)
+			subscribeMap.Store(val, connList)
 		}
-		topicList = append(topicList, topicName...)
-		subscribeMap.Store(conn.conn, topicList)
 	}
+	return nil
+}
+func StateVerification(remoteAdd string) error {
+	value, loaded := connMap.LoadAndDelete(remoteAdd)
+	if !loaded {
+		return fmt.Errorf("未定义的连接")
+	}
+	conn, err := value.(*connection)
+	if !err {
+		return fmt.Errorf("错误的连接")
+	}
+	conn.expire = ExpireTime
+	connMap.Store(remoteAdd, conn)
 	return nil
 }

@@ -93,7 +93,7 @@ var ConnErrors = map[byte]error{
 	ErrProtocolViolation:            ErrorProtocolViolation,
 }
 
-func ReadPacket(r io.Reader) (ControlPacket, error) {
+func ReadPacket(r io.Reader, remoteAddress string) (ControlPacket, error) {
 	var fh FixedHeader
 	b := make([]byte, 1)
 
@@ -106,7 +106,7 @@ func ReadPacket(r io.Reader) (ControlPacket, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	fh.RemoteAddress = remoteAddress
 	cp, err := NewControlPacketWithHeader(fh)
 	if err != nil {
 		return nil, err
@@ -196,6 +196,7 @@ func NewControlPacketWithHeader(fh FixedHeader) (ControlPacket, error) {
 type Details struct {
 	Qos       byte
 	MessageID uint16
+	Address   string
 }
 
 type FixedHeader struct {
@@ -204,6 +205,7 @@ type FixedHeader struct {
 	Qos             byte
 	Retain          bool
 	RemainingLength int
+	RemoteAddress   string
 }
 
 func (fh FixedHeader) String() string {
@@ -312,7 +314,7 @@ func decodeLength(r io.Reader) (int, error) {
 	var rLength uint32
 	var multiplier uint32
 	b := make([]byte, 1)
-	for multiplier < 27 { // fix: Infinite '(digit & 128) == 1' will cause the dead loop
+	for multiplier < 27 {
 		_, err := io.ReadFull(r, b)
 		if err != nil {
 			return 0, err

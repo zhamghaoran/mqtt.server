@@ -51,5 +51,5 @@ func (u *UnsubscribePacket) Unpack(b io.Reader) error {
 }
 
 func (u *UnsubscribePacket) Details() Details {
-	return Details{Qos: 1, MessageID: u.MessageID}
+	return Details{Qos: 1, MessageID: u.MessageID, Address: u.RemoteAddress}
 }

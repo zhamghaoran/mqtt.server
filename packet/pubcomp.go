@@ -37,5 +37,5 @@ func (pc *PubcompPacket) Unpack(b io.Reader) error {
 }
 
 func (pc *PubcompPacket) Details() Details {
-	return Details{Qos: pc.Qos, MessageID: pc.MessageID}
+	return Details{Qos: pc.Qos, MessageID: pc.MessageID, Address: pc.RemoteAddress}
 }
