@@ -3,7 +3,7 @@ package packets
 import (
 	"fmt"
 	"io"
-	"mqtt/constant"
+	"mqtt-server/constant"
 )
 
 type PubrelPacket struct {

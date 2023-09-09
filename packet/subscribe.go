@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"mqtt/constant"
+	"mqtt-server/constant"
 )
 
 type SubscribePacket struct {

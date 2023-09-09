@@ -2,7 +2,7 @@ package packets
 
 import (
 	"io"
-	"mqtt/constant"
+	"mqtt-server/constant"
 )
 
 type DisconnectPacket struct {

@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"mqtt/config"
-	"mqtt/constant"
-	"mqtt/handler"
-	packets "mqtt/packet"
+	"mqtt-server/config"
+	"mqtt-server/constant"
+	"mqtt-server/handler"
+	packets "mqtt-server/packet"
 	"net"
 )
 
