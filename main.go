@@ -1,11 +1,11 @@
 package main
 
 import (
-	config2 "leetcode/config"
+	"leetcode/config"
 	"leetcode/service"
 )
 
 func main() {
-	config := config2.Config{Port: "1883"}
-	service.CreateService(config)
+	Mqttconfig := config.Config{Port: "1883"}
+	service.CreateService(Mqttconfig)
 }
