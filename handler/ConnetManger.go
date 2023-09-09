@@ -50,7 +50,7 @@ func init() {
 	go scanMapDeleteExpireKey()
 }
 func scanMapDeleteExpireKey() {
-	connMap.Range(func(key, value any) bool {
+	connMap.Range(func(key, value interface{}) bool {
 		connection, ok := value.(connection)
 		if ok {
 			if connection.expire < DeleteTime {
