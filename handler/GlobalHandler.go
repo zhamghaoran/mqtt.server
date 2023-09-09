@@ -1,7 +1,7 @@
 package handler
 
 import (
-	packets "mqtt-server/packet"
+	packets "github.com/zhamghaoran/mqtt.server/packet"
 )
 
 var HandlerMap map[string]interface{}

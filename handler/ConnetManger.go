@@ -3,9 +3,9 @@ package handler
 import (
 	"bytes"
 	"fmt"
+	"github.com/zhamghaoran/mqtt.server/constant"
+	packets "github.com/zhamghaoran/mqtt.server/packet"
 	"log"
-	"mqtt-server/constant"
-	packets "mqtt-server/packet"
 	"net"
 	"sync"
 	"time"

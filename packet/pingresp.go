@@ -1,8 +1,8 @@
 package packets
 
 import (
+	"github.com/zhamghaoran/mqtt.server/constant"
 	"io"
-	"mqtt-server/constant"
 )
 
 type PingrespPacket struct {

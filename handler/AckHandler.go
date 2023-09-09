@@ -3,8 +3,8 @@ package handler
 import (
 	"bytes"
 	"fmt"
-	"mqtt-server/constant"
-	packets "mqtt-server/packet"
+	"github.com/zhamghaoran/mqtt.server/constant"
+	packets "github.com/zhamghaoran/mqtt.server/packet"
 	"net"
 )
 

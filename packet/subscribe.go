@@ -3,8 +3,8 @@ package packets
 import (
 	"bytes"
 	"fmt"
+	"github.com/zhamghaoran/mqtt.server/constant"
 	"io"
-	"mqtt-server/constant"
 )
 
 type SubscribePacket struct {

@@ -3,12 +3,12 @@ package service
 import (
 	"bytes"
 	"fmt"
+	"github.com/zhamghaoran/mqtt.server/config"
+	"github.com/zhamghaoran/mqtt.server/constant"
+	"github.com/zhamghaoran/mqtt.server/handler"
+	packets "github.com/zhamghaoran/mqtt.server/packet"
 	"io"
 	"log"
-	"mqtt-server/config"
-	"mqtt-server/constant"
-	"mqtt-server/handler"
-	packets "mqtt-server/packet"
 	"net"
 )
 
