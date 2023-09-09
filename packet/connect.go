@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"leetcode/constant"
+	"mqtt/constant"
 )
 
 type ConnectPacket struct {

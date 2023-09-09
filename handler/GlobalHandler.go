@@ -1,7 +1,7 @@
 package handler
 
 import (
-	packets "leetcode/packet"
+	packets "mqtt/packet"
 )
 
 var HandlerMap map[string]interface{}

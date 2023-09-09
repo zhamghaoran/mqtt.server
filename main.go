@@ -1,8 +1,8 @@
 package main
 
 import (
-	"leetcode/config"
-	"leetcode/service"
+	"mqtt/config"
+	"mqtt/service"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package packets
 import (
 	"fmt"
 	"io"
-	"leetcode/constant"
+	"mqtt/constant"
 )
 
 type PubcompPacket struct {

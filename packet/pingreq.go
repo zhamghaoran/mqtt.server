@@ -2,7 +2,7 @@ package packets
 
 import (
 	"io"
-	"leetcode/constant"
+	"mqtt/constant"
 )
 
 type PingreqPacket struct {
