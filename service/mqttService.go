@@ -7,21 +7,23 @@ import (
 	"github.com/zhamghaoran/mqtt.server/constant"
 	"github.com/zhamghaoran/mqtt.server/handler"
 	packets "github.com/zhamghaoran/mqtt.server/packet"
+	"github.com/zhamghaoran/mqtt.server/pool"
 	"io"
 	"log"
 	"net"
 )
 
 func CreateService(Config config.Config) {
+
 	// 创建一个tcp服务
-	tcpAddr, _ := net.ResolveTCPAddr("tcp", Config.Port)
+	tcpAddr, _ := net.ResolveTCPAddr("tcp", ":"+Config.Port)
 	listener, err := net.ListenTCP("tcp", tcpAddr)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer listener.Close()
 
-	log.Println("MQTT server listening on localhost:1883")
+	log.Println("MQTT server listening on localhost:" + Config.Port)
 
 	for {
 		conn, err := listener.AcceptTCP()
@@ -29,8 +31,11 @@ func CreateService(Config config.Config) {
 			log.Println("Error accepting connection:", err)
 			continue
 		}
-		go handleConnection(conn)
+		pool.Submit(func() {
+			handleConnection(conn)
+		})
 	}
+	defer pool.Pool.Release()
 }
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
@@ -58,13 +63,13 @@ func handleConnection(conn net.Conn) {
 			err := handler.StateVerification(conn.RemoteAddr().String())
 			if err != nil {
 				log.Println(err.Error())
-				return
+				continue
 			}
 			// 处理数据
 			typeCode, err := handleDeclaredStruct(packet)
 			if err != nil {
 				log.Printf("未定义的连接: %v", err.Error())
-				return
+				continue
 			}
 			err = handler.SendACK(conn, typeCode, packet.Details().MessageID)
 			if err != nil {
@@ -117,8 +122,7 @@ func ExecuteHandler(packet packets.ControlPacket, handler handler.HandlerI) (int
 		packet = packet.(*packets.SubackPacket)
 		return packet.Type(), nil
 	case constant.UNSUBSCRIBE:
-		packet = packet.(*packets.UnsubscribePacket)
-		return packet.Type(), nil
+		return packet.Type(), handler.UnsubscribeHandle(packet.(*packets.UnsubscribePacket))
 	case constant.UNSUBSCRIBEACK:
 		packet = packet.(*packets.UnsubackPacket)
 		return packet.Type(), nil

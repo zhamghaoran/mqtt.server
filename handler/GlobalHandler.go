@@ -49,7 +49,7 @@ func (DefaultHandler) SubackHandle(packet *packets.SubscribePacket) error {
 	return nil
 }
 func (DefaultHandler) UnsubscribeHandle(packet *packets.UnsubscribePacket) error {
-	return nil
+	return Unsubscribe(packet.RemoteAddress, packet.Topics)
 }
 func (DefaultHandler) UnsubackHandle(packet *packets.UnsubackPacket) error {
 	return nil
